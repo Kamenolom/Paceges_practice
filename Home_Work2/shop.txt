@@ -1,0 +1,9 @@
+PRODUCT;Iphone 15;Phone;1500;2
+PRODUCT;Lenovo Legion3;Laptop;3000;1
+PRODUCT;Samsung Galaxy 7a;Phone;600;3
+
+CUSTOMER;Ivan;ivansamorodim@gmail.com
+CUSTOMER;Iryna;irina553@gmail.com
+
+ORDER;Ivan;Iphone 15;Lenovo Legion3
+ORDER;Iryna;Samsung Galaxy 7a
