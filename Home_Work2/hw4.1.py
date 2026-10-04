@@ -1,15 +1,11 @@
 class Product:
-    def __init__(self, name, price, quantity, category):
+    def __init__(self, name, price, category):
         self.name = name
         self.price = price
-        self.quantity = quantity
         self.category = category
 
     def change_price(self, new_price):
         self.price = new_price
-
-    def change_quantity(self, new_quantity):
-        self.quantity = new_quantity
 
 
 class Customer:
@@ -36,17 +32,38 @@ class Order:
         return total
 
 
+class Warehouse:
+    def __init__(self, name):
+        self.name = name
+        self.products = {}
+
+    def add_product(self, product, quantity):
+        self.products[product] = quantity
+
+    def change_quantity(self, product, new_quantity):
+        if product in self.products:
+            self.products[product] = new_quantity
+        else:
+            print("Товар отсутсвует на складе")
+
+    def add_quantity(self, product, new_quantity):
+        if product in self.products:
+            self.products[product] += new_quantity
+        else:
+            print("Товар отсутствует на складе")
+
+
 file_product_order = []
 file_customer_order = []
 file_orders = []
+all_warehouse = {}
 with open("shop.txt", "r") as file:
     for line in file:
         line = line.strip().split(";")
         if line[0] == "PRODUCT":
-            product, name, category, price, quantity = line
+            product, name, category, price = line
             price = float(price)
-            quantity = int(quantity)
-            product4 = Product(name, price, quantity, category)
+            product4 = Product(name, price, category)
             file_product_order.append(product4)
         if line[0] == "CUSTOMER":
             customer, name, email = line
@@ -63,6 +80,14 @@ with open("shop.txt", "r") as file:
                 if customer == cust.name:
                     cust.add_order(order2)
             file_orders.append(order2)
+        if line[0] == "WAREHOUSE":
+            warehouse, name, product, quantity = line
+            quantity = int(quantity)
+            if name not in all_warehouse:
+                all_warehouse[name] = Warehouse(name)
+            for prod in file_product_order:
+                if product == prod.name:
+                    all_warehouse[name].add_product(prod, quantity)
 
 for order in file_orders:
     print("Заказ:", order.total_price())
@@ -73,3 +98,8 @@ for customer in file_customer_order:
 
     for order in customer.product_order:
         print(order.total_price())
+
+for name, warehouse in all_warehouse.items():
+    print("Склад:", name)
+    for product, quantity in warehouse.products.items():
+        print(f"{product.name} На складе: {quantity}")
