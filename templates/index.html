@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}My Sports Journey{% endblock %}
+
+{% block content %}
+    <h1>My Sports Journey</h1>
+        <img src="{{ url_for('static', filename='images/muay_thai.jpg') }}"
+     alt="Muay Thai training">
+
+    <p>I train in Muay Thai.</p>
+
+    <p>I practiced powerlifting for a long time.
+    After a back injury, I decided to return to martial arts.</p>
+
+    <h2>My Goals</h2>
+
+    <p>I want to improve my technique and become faster.</p>
+
+    <p>I also want to become more disciplined and confident.</p>
+{% endblock %}
